@@ -1,5 +1,3 @@
-require 'pry'
-
 module Sidekiq
   module Tip
     module Server
