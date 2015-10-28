@@ -4,6 +4,8 @@ source 'https://rubygems.org'
 gemspec
 
 group :developmnt, :test do
+  gem 'simplecov'
+  gem 'coveralls', require: false
   gem 'pry'
   gem 'sidekiq', git: 'https://github.com/mperham/sidekiq.git'
   gem 'minitest'
