@@ -1,5 +1,7 @@
 # Sidekiq::Tip
 
+[![Build Status](https://travis-ci.org/zzet/sidekiq-tip.svg)](https://travis-ci.org/zzet/sidekiq-tip) [![Coverage Status](https://coveralls.io/repos/zzet/sidekiq-tip/badge.svg?branch=master&service=github)](https://coveralls.io/github/zzet/sidekiq-tip?branch=master)
+
 Perform sidekiq jobs in time interval
 
 ## Installation
