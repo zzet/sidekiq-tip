@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["me@zzet.org"]
   spec.summary       = %q{Perform worker in time interval}
   spec.description   = %q{Sometimes we need to perform some workers in time interval. For example, we want to run all jobs at night (from 2 am to 6 am).}
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/zzet/sidekiq-tip"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
