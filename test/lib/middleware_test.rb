@@ -22,7 +22,13 @@ class MiddlawareTest < Minitest::Test
     assert { SomeIvarJob.jobs.size == 0 }
     SomeIvarJob.perform_async
     assert { SomeIvarJob.jobs.size == 1 }
-    SomeJob.drain
+    jobs = []
+    while job = SomeIvarJob.jobs.shift do
+      jobs << job
+    end
+    while job = jobs.shift do
+     SomeIvarJob.process_job(job)
+    end
     assert { SomeIvarJob.jobs.size == 1 }
 
     Timecop.return
