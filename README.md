@@ -1,6 +1,6 @@
 # Sidekiq::Tip
 
-TODO: Write a gem description
+Perform sidekiq jobs in time interval
 
 ## Installation
 
@@ -12,15 +12,29 @@ gem 'sidekiq-tip'
 
 And then execute:
 
-    $ bundle
+```bash
+$ bundle
+```
 
 Or install it yourself as:
 
-    $ gem install sidekiq-tip
+```bash
+$ gem install sidekiq-tip
+```
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+class SomeJob
+  include Sidekiq::Worker
+  # [0, 0, 0] == [hour, min, sec]
+  sidekiq_options start_at: [0, 0, 0], finish_at: [10, 0, 0]
+
+  def perform
+    # ...
+  end
+end
+```
 
 ## Contributing
 
