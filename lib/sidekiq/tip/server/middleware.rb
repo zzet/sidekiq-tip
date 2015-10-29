@@ -1,4 +1,3 @@
-require 'pry'
 module Sidekiq
   module Tip
     module Server
@@ -14,15 +13,19 @@ module Sidekiq
           if appropriate_time_interval?
             yield
           else
-            payload = Sidekiq.dump_json(msg)
-
-            Sidekiq.redis do |conn|
-              conn.zadd(queue, next_start_time.to_s, payload)
-            end
+            reenqueue(msg, queue)
           end
         end
 
-        #private
+        private
+
+        def reenqueue(msg, queue)
+          payload = Sidekiq.dump_json(msg)
+
+          Sidekiq.redis do |conn|
+            conn.zadd(queue, next_start_time.to_f.to_s, payload)
+          end
+        end
 
         def fetch_times(msg)
           @start_at = msg.fetch('start_at', @start_at)
