@@ -14,7 +14,11 @@ module Sidekiq
           if appropriate_time_interval?
             yield
           else
-            worker.class.perform_in(wait_time, msg)
+            payload = Sidekiq.dump_json(msg)
+
+            Sidekiq.redis do |conn|
+              conn.zadd(queue, next_start_time.to_s, payload)
+            end
           end
         end
 
@@ -43,8 +47,8 @@ module Sidekiq
           Time.now.utc
         end
 
-        def wait_time
-          (start_time + 86400) - current_time
+        def next_start_time
+          start_time + 86400
         end
       end
     end
