@@ -12,11 +12,11 @@ require 'wrong'
 require 'mocha/setup'
 require 'mock_redis'
 
+require 'sidekiq'
 require 'celluloid/current'
 require 'celluloid/test'
 Celluloid.boot
 
-require 'sidekiq'
 require 'sidekiq/cli'
 require 'sidekiq/processor'
 require 'sidekiq/util'

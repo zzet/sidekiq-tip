@@ -8,6 +8,7 @@ group :developmnt, :test do
   gem 'coveralls', require: false
   gem 'pry'
   gem 'sidekiq', git: 'https://github.com/mperham/sidekiq.git'
+  gem 'celluloid'
   gem 'minitest'
   gem 'wrong'
   gem 'mocha'
