@@ -2,6 +2,16 @@ require 'test_helper'
 require 'pry'
 
 class MiddlawareTest < Minitest::Test
+  def setup
+    redis = MockRedis.new
+    client = Object.new
+
+    redis.stubs(:client).returns(client)
+    client.stubs(:location).returns('MockRedis')
+
+    Sidekiq::RedisConnection.stubs(:create).returns(ConnectionPool.new({}) { redis })
+  end
+
   def test_job_in_interval
     t = Time.utc(2008, 9, 1, 1, 0, 0)
     Timecop.travel(t)
@@ -29,7 +39,11 @@ class MiddlawareTest < Minitest::Test
     while job = jobs.shift do
      SomeIvarJob.process_job(job)
     end
-    assert { SomeIvarJob.jobs.size == 1 }
+    ej = 0
+    Sidekiq.redis do |conn|
+      ej += conn.zrange("default", 0, -1).size
+    end
+    assert { ej == 1 }
 
     Timecop.return
   end

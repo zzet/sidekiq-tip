@@ -9,6 +9,8 @@ require 'minitest/pride'
 require 'minitest/autorun'
 require 'timecop'
 require 'wrong'
+require 'mocha/setup'
+require 'mock_redis'
 
 require 'celluloid/current'
 require 'celluloid/test'
@@ -19,10 +21,8 @@ require 'sidekiq/cli'
 require 'sidekiq/processor'
 require 'sidekiq/util'
 
-require 'sidekiq/testing'
-Sidekiq::Testing.fake!
-
 require 'sidekiq/tip'
+require 'sidekiq/testing'
 
 Sidekiq::Testing.server_middleware do |chain|
   chain.add Sidekiq::Tip::Server::Middleware
